@@ -9,10 +9,10 @@
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md my-3" role="alert" v-if="$page.flash && $page.flash.message">
+                    <div class="bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md my-3" role="alert" v-if="Object.entries(errors).length">
                       <div class="flex">
                         <div>
-                          <p class="text-sm">{{ $page.flash.message }}</p>
+                          <p class="text-sm text-red-500" v-html="errorMessage(errors)"></p>
                         </div>
                       </div>
                     </div>
@@ -56,28 +56,28 @@
                                     <div class="mb-4">
                                         <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Name:</label>
                                         <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="name" placeholder="Enter Name" v-model="form.name">
-                                        <div v-if="$page.errors && $page.errors.name" class="text-red-500">{{ $page.errors.name[0] }}</div>
+                                        <div class="text-red-500" v-if="errors.name">{{ errors.name }}</div>
                                     </div>
                                 </div>
                                 <div class="">
                                     <div class="mb-4">
                                         <label for="price" class="block text-gray-700 text-sm font-bold mb-2">Price:</label>
                                         <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="price" placeholder="Enter Price" v-model="form.price">
-                                        <div v-if="$page.errors && $page.errors.price" class="text-red-500">{{ $page.errors.price[0] }}</div>
+                                        <div class="text-red-500" v-if="errors.price">{{ errors.price }}</div>
                                     </div>
                                 </div>
                                 <div class="">
                                     <div class="mb-4">
                                         <label for="amount" class="block text-gray-700 text-sm font-bold mb-2">Amount:</label>
                                         <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="amount" placeholder="Enter Amount" v-model="form.amount">
-                                        <div v-if="$page.errors && $page.errors.amount" class="text-red-500">{{ $page.errors.amount[0] }}</div>
+                                        <div class="text-red-500" v-if="errors.amount">{{ errors.amount }}</div>
                                     </div>
                                 </div>
                                 <div class="">
                                     <div class="mb-4">
                                         <label for="qty" class="block text-gray-700 text-sm font-bold mb-2">Qty:</label>
                                         <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="qty" placeholder="Enter Qty" v-model="form.qty">
-                                        <div v-if="$page.errors && $page.errors.qty" class="text-red-500">{{ $page.errors.qty[0] }}</div>
+                                        <div class="text-red-500" v-if="errors.qty">{{ errors.qty }}</div>
                                     </div>
                                 </div>
                                 <div class="" v-if="category.data">
@@ -88,7 +88,7 @@
                                         </select>
                                         
                                         <!-- <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="qty" placeholder="Enter Qty" v-model="form.qty"> -->
-                                        <div v-if="$page.errors && $page.errors.product_category_id" class="text-red-500">{{ $page.errors.product_category_id[0] }}</div>
+                                        <div class="text-red-500" v-if="errors.product_category_id">{{ errors.product_category_id }}</div>
                                     </div>
                                 </div>
                             </div>
@@ -121,6 +121,7 @@
 
 <script>
     import BreezeAuthenticatedLayout from '@/Layouts/Authenticated'
+    import { errorMessage } from "@/helpers";
 
     export default {
         components: {
@@ -160,6 +161,7 @@
                 this.reset();
                 this.closeModal();
                 this.editMode = false;
+                console.log(this.errors)
             },
             edit(data) {
                 this.form = Object.assign({}, data);
@@ -181,9 +183,10 @@
             },
             getCategory() {
                 axios.get('/api/product/category').then(response => {
-                    this.category = response
+                    this.category = response.data
                 });
-            }
+            },
+            errorMessage,
         },
     }
 </script>

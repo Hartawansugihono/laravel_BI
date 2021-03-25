@@ -46,13 +46,13 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        Validator::make($request->all(), [
-            'name' => ['required'],
-            'product_category_id' => ['required', 'exists:product_categories,id'],
-            'price' => ['required', 'integer'],
-            'amount' => ['required', 'integer'],
-            'qty' => ['required', 'integer']
-        ])->validate();
+        $request->validate([
+            'name'                  => ['required'],
+            'product_category_id'   => ['required', 'exists:product_categories,id'],
+            'price'                 => ['required', 'integer'],
+            'amount'                => ['required', 'integer'],
+            'qty'                   => ['required', 'integer']
+        ]);
   
         $this->service->create($request->only(['name', 'product_category_id', 'price', 'qty', 'amount']));
   
