@@ -83,13 +83,14 @@ final class ProductCategoryService
         /** @var bool $response */
         $response = false;
 
-        DB::transaction(function () use (&$response, $request, $data) {
+        DB::transaction(function () use (&$response, $request, $data, $id) {
             $data->fill($request);
 
             /** @var bool $response */
             $response = $data->save();
 
             delsRedis( 'categories:*' );
+            delRedis('category:'.$id);
         });
 
         return $response;
@@ -108,7 +109,7 @@ final class ProductCategoryService
         $data->delete();
         
         delsRedis( 'categories:*' );
-        delRedis('category:*');
+        delsRedis('category:*');
 
         return $data;
     }
