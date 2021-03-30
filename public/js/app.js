@@ -16973,7 +16973,7 @@ __webpack_require__.r(__webpack_exports__);
           icon: 'fa fa-list-alt'
         }, {
           name: 'Product',
-          route: 'product.index',
+          route: 'products.index',
           icon: 'fab fa-product-hunt'
         }]
       }]
@@ -17423,7 +17423,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     update: function update(data) {
       data._method = 'PATCH';
-      this.$inertia.post('/product/category' + data.id, data);
+      this.$inertia.post('/product/category/' + data.id, data);
       this.reset();
       this.closeModal();
     },
@@ -17492,7 +17492,7 @@ __webpack_require__.r(__webpack_exports__);
       };
     },
     save: function save(data) {
-      this.$inertia.post('/product', data);
+      this.$inertia.post('/products', data);
       this.reset();
       this.closeModal();
       this.editMode = false;
@@ -17505,14 +17505,14 @@ __webpack_require__.r(__webpack_exports__);
     },
     update: function update(data) {
       data._method = 'PATCH';
-      this.$inertia.post('/product/' + data.id, data);
+      this.$inertia.post('/products/' + data.id, data);
       this.reset();
       this.closeModal();
     },
     deleteRow: function deleteRow(data) {
       if (!confirm('Are you sure want to remove?')) return;
       data._method = 'DELETE';
-      this.$inertia.post('/product/' + data.id, data);
+      this.$inertia.post('/products/' + data.id, data);
       this.reset();
       this.closeModal();
     },
@@ -19661,7 +19661,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       /* KEYED_FRAGMENT */
       ))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_pagination_2, {
         pagination: $props.data,
-        offset: 5
+        offset: 2
       }, null, 8
       /* PROPS */
       , ["pagination"]), $data.isOpen ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_15, [_hoisted_16, _hoisted_17, _hoisted_18, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_20, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_21, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_22, [_hoisted_23, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("input", {

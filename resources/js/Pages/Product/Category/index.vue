@@ -60,7 +60,7 @@
                             </tbody>
                         </table>
 
-                        <pagination-2 :pagination="data" :offset="5" />
+                        <pagination-2 :pagination="data" :offset="2" />
 
                         <div class="fixed z-10 inset-0 overflow-y-auto ease-out duration-400" v-if="isOpen">
                             <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
@@ -160,7 +160,7 @@
             },
             update(data) {
                 data._method = 'PATCH';
-                this.$inertia.post('/product/category' + data.id, data)
+                this.$inertia.post('/product/category/' + data.id, data)
                 this.reset();
                 this.closeModal();
             },

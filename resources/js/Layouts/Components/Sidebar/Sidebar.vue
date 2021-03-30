@@ -118,7 +118,7 @@ export default {
             },
             {
               name  : 'Product',
-              route : 'product.index',
+              route : 'products.index',
               icon  : 'fab fa-product-hunt'
             }
           ],

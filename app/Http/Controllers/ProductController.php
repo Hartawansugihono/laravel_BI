@@ -33,7 +33,7 @@ class ProductController extends Controller
             'Product/index', 
             [
                 'data' => $this->service->all(),
-                // 'category' => resolve(ProductCategoryService::class)->all()
+                'category' => resolve(ProductCategoryService::class)->all()
             ]
         );
     }

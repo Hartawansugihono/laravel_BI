@@ -318,7 +318,7 @@
                 }
             },
             save(data) {
-                this.$inertia.post('/product', data)
+                this.$inertia.post('/products', data)
                 this.reset();
                 this.closeModal();
                 this.editMode = false;
@@ -331,14 +331,14 @@
             },
             update(data) {
                 data._method = 'PATCH';
-                this.$inertia.post('/product/' + data.id, data)
+                this.$inertia.post('/products/' + data.id, data)
                 this.reset();
                 this.closeModal();
             },
             deleteRow(data) {
                 if (!confirm('Are you sure want to remove?')) return;
                 data._method = 'DELETE';
-                this.$inertia.post('/product/' + data.id, data)
+                this.$inertia.post('/products/' + data.id, data)
                 this.reset();
                 this.closeModal();
             },

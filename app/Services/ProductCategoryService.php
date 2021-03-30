@@ -21,7 +21,7 @@ final class ProductCategoryService
     /**
      * @param array $request
      */
-    public function all($request = []): LengthAwarePaginator
+    public function all($request = []): Object
     {
         /** @var int $pagination */
         $pagination = config('app.pagination');
@@ -32,7 +32,16 @@ final class ProductCategoryService
         /** @var string|array $with */
         if (!empty($request['with'])) $query = $query->with($with);
 
-        return $query->orderBy('name', 'asc')->paginate($pagination);
+        $page = !empty($request['page']) ? $request['page']: 1;
+        // delRedis('category-'.$page.'-limit-'.$pagination);
+        $redis = getRedis('categories:'.$page);
+        if( is_null($redis) ) {
+            $data = $query->orderBy('name', 'asc')->paginate($pagination)->toArray();
+            $redis = setRedis('categories:'.$page, json_encode($data) );
+        }
+
+        $redis = json_decode($redis);
+        return $redis;
     }
 
     /**
@@ -55,8 +64,9 @@ final class ProductCategoryService
      */
     public function find($id)
     {
-        $data = $this->model->findOrFail($id);
-        return $data;
+        $category = getRedis('category:'.$id);
+        if($category) $category = setRedis('category:'.$id, $this->model->findOrFail($id) );
+        return $category;
     }
     
     /**
@@ -93,6 +103,10 @@ final class ProductCategoryService
         $data = $this->model->find($id);
         
         $data->delete();
+        
+        delsRedis( 'categories:*' );
+        delRedis('category:*');
+
         return $data;
     }
 }
