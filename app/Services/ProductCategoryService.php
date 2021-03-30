@@ -53,6 +53,7 @@ final class ProductCategoryService
         /** @var ProductCategory $data */
         $data = $this->model->create($data);
 
+        delsRedis( 'categories:*' );
         return $data;
     }
  
@@ -87,6 +88,8 @@ final class ProductCategoryService
 
             /** @var bool $response */
             $response = $data->save();
+
+            delsRedis( 'categories:*' );
         });
 
         return $response;
