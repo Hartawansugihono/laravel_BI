@@ -28,7 +28,7 @@ class ProductCategoryController extends Controller
      */
     public function index(Request $request)
     {
-        return ProductCategoryCollection::collection($this->service->all( $request->all() ));
-        // return response()->json($this->service->all( $request->all() ));
+        // return ProductCategoryCollection::collection($this->service->all( $request->all() ));
+        return response()->json($this->service->all( $request->all() ));
     }
 }

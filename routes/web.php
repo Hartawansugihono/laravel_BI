@@ -32,6 +32,6 @@ require __DIR__.'/auth.php';
 
 
 Route::group(['middleware' => ['auth', 'verified']], function () {
-    Route::apiResource('/product', 'ProductController');
     Route::apiResource('/product/category', 'ProductCategoryController');
+    Route::apiResource('/product', 'ProductController');
 });
